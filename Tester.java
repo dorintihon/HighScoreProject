@@ -7,17 +7,15 @@ public class Tester {
     private static final String IN_FILE = "in_players.txt";
     private static final String OUT_FILE = "out_players.txt";
 
-    public static void main(String[] args) throws FileNotFoundException {
-// creating an instance of TopScorer class
-        TopScorer topScorer = new TopScorer("./in_players.txt");
-        System.out.println(topScorer.getPlayerList());
-// read
+    public static void main(String[] args){
 
-// display the top players
+        TopScorer ts = new TopScorer("in_players.txt");
 
-// get top 5 players
 
-// display all the top 5 players [OPTIONAL]
+        // testing all methods of TopScorers
+        int score = ts.playerScore("Pele");
+        System.out.println("\nScore of Pele is " + score);
+
 
     }
 }

@@ -8,27 +8,39 @@ public class TopScorer {
     private ArrayList<Player> playerList;
     ArrayList<String> userNames = new ArrayList<>();
     ArrayList<Integer> userRatings = new ArrayList<>();
+    String fileName;
 
-    public TopScorer(FileInputStream fileByteStream) {
+    public TopScorer() {
         playerList = new ArrayList<>();
     }
 
-    public TopScorer(String file) {
-
-        Scanner inFS = new Scanner(file);
-        playerList = new ArrayList<>();
-
-
-        while(inFS.hasNext()) {
-            String playerName = inFS.next();
-            int playerScore = inFS.nextInt();
-
-            playerList.add(new Player(playerName,playerScore));
-            userNames.add(playerName);
-            userRatings.add(playerScore);
+    public TopScorer(String fileName) {
+        File f = new File(fileName);
+        if(f.isFile()) {
+            readData();
         }
+    }
 
-        inFS.close(); // close() may throw IOException if fails
+    void readData() {
+        File file = new File(fileName);
+        Scanner console;
+        try {
+            // getting file
+            console = new Scanner(file);
+            // loop over file data
+            while (console.hasNext()) {
+                // getting file data line by line
+                String name = console.next();
+                int score = console.nextInt();
+                playerList.add(new Player(name, score));
+
+            }
+
+            // sort list in descending order by using our static sortPlayer() class.
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -51,7 +63,20 @@ public class TopScorer {
     }
 
     public void getTopNames(){
-        playerList.sort(Collections.reverseOrder());
+        Scanner inFS = null;
+        playerList = new ArrayList<>();
+
+
+        while(inFS.hasNext()) {
+            String playerName = inFS.next();
+            int playerScore = inFS.nextInt();
+
+            playerList.add(new Player(playerName,playerScore));
+            userNames.add(playerName);
+            userRatings.add(playerScore);
+        }
+
+        inFS.close(); // close() may throw IOException if fails
     }
 
     public ArrayList<Player> getTopFivePlayers(ArrayList<Player> players) {
